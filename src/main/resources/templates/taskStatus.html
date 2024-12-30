@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 主页背景：科技感渐变和动画效果 */
+        body {
+            font-family: 'Roboto', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, rgba(10, 23, 59, 1) 0%, rgba(46, 67, 149, 1) 50%, rgba(104, 174, 232, 1) 100%);
+            background-size: 200% 200%;
+            animation: gradientAnimation 5s ease infinite;
+        }
+
+        /* 背景动画效果 */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* 任务控制容器 */
+        .task-container {
+            background: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px); /* 背景模糊效果 */
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* 标题样式 */
+        h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* 状态标签 */
+        .status-label {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        /* 状态值样式 */
+        .status-value {
+            font-size: 24px;
+            font-weight: 700;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #00c6ff, #0072ff); /* 初始状态 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .status-value.active {
+            background: linear-gradient(135deg, #00e676, #00c853); /* Active状态绿色渐变 */
+        }
+
+        .status-value.inactive {
+            background: linear-gradient(135deg, #ff1744, #d50000); /* Inactive状态红色渐变 */
+        }
+
+        /* 控制按钮样式 */
+        .control-button-start {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .control-button-stop {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            background-color: #f40623;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* 自适应设计 */
+        @media (max-width: 480px) {
+            .task-container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- 任务控制表单 -->
+<div class="task-container">
+    <h1>定时任务控制面板</h1>
+    <!-- 当前任务状态 -->
+    <p class="status-label">当前任务状态:</p>
+    <span class="status-value" th:text="${scheduledTaskActive ? '活跃' : '闲置'}"
+          th:classappend="${scheduledTaskActive ? ' active' : ' inactive'}"></span>
+
+    <!-- 控制按钮 -->
+    <button class="control-button-start" th:if="${!scheduledTaskActive}" th:onclick="'window.location.href=\'/updateTaskStatus?flag=1\''">开始</button>
+    <button class="control-button-stop" th:if="${scheduledTaskActive}" th:onclick="'window.location.href=\'/updateTaskStatus?flag=0\''">停止</button>
+</div>
+
+</body>
+</html>

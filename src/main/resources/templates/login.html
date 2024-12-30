@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 主页背景：科技感渐变和动画效果 */
+        body {
+            font-family: 'Roboto', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, rgba(10, 23, 59, 1) 0%, rgba(46, 67, 149, 1) 50%, rgba(104, 174, 232, 1) 100%);
+            background-size: 200% 200%;
+            animation: gradientAnimation 5s ease infinite;
+        }
+
+        /* 背景动画效果 */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* 登录容器 */
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px); /* 背景模糊效果 */
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* 标题样式 */
+        h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* 输入框 */
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            color: #050505;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border: 1px solid #4CAF50;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 按钮样式 */
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* 提示文本 */
+        .login-helper {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        .login-helper a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        /* 适配移动端 */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        /* 错误提示样式 */
+        .error-message {
+            color: #ef0404;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* 强调文本样式 */
+        .error-message p {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 登录表单 -->
+<div class="login-container">
+    <h1>欢迎登录</h1>
+    <form action="/login" method="POST" id="loginForm">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <!-- 用户名输入框 -->
+        <input type="text" id="username" name="username" placeholder="请输入用户名" required>
+
+        <!-- 密码输入框 -->
+        <input type="password" id="password" name="password" placeholder="请输入密码" required>
+
+        <!-- 登录按钮 -->
+        <button type="submit">登录</button>
+        <!-- 错误提示 -->
+        <div th:if="${param.error}" class="error-message">
+            <p>无效的用户名或密码</p>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
